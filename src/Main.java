@@ -44,12 +44,26 @@ public class Main {
             }
         }
 
+    }
 
+    public static void printDelivaryTime(int deliveryDistance) {
+        int deliveryTime = 1;
+        if (deliveryDistance < 20) {
+            //deliveryTime = deliveryTime;
+        } else if (deliveryDistance < 60) {
+            deliveryTime += 1;
+        } else if (deliveryDistance < 100) {
+            deliveryTime += 2;
+        } else {
+            System.out.println("Свыше 100 км доставки нет");
+        }
+        System.out.println("Потребуется дней на доставку: " + deliveryTime);
     }
 
     public static void main(String[] args) {
         task1();
         task2();
+        task3();
     }
 
     public static void task1() {
@@ -75,6 +89,16 @@ public class Main {
         int clientDeviceYear = sc.nextInt(); // вводим год выпуска
 
         printClientVersion(osName, clientDeviceYear); // идем в метод и делаем проверку
+    }
+
+    public static void task3() {
+        System.out.println("Задание 3");
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Введине расстояние от офиса до адреса доставки - ");
+        int deliveryDistance = sc.nextInt();
+
+        printDelivaryTime(deliveryDistance);
     }
 
 }
