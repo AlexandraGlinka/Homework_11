@@ -12,13 +12,31 @@ public class Main {
 
     public static void printClientVersion(String nameOs, int yearOfCreation) { // проверяем ОС и год для задачи 2
         int os;
+        String formatedOs;
         int currentYear = LocalDate.now().getYear(); // текущий год
 
-        if (nameOs.equals("iOS")) {
-            os = 0; // iOs
-        } else {
-            os = 1; // Andriod
+        switch (nameOs.toLowerCase()) {
+            case "ios":
+                os = 0;
+                formatedOs = "iOs";
+                break;
+            case "andriod":
+                os = 1;
+                formatedOs = "Andriod";
+                break;
+            default:
+                System.out.println("Система " + nameOs + " не поддерживается");
+                return;
         }
+
+//        if (nameOs.equalsIgnoreCase("ios")) {
+//            os = 0; // iOs
+//        } else if (nameOs.equalsIgnoreCase("andriod")) {
+//            os = 1; // Andriod
+//        } else {
+//            System.out.println("Система " + nameOs + " не поддерживается");
+//            break;
+//        }
 
         // !!!!!!!!!!!!!!
         // ПОЧЕМУ ЕСЛИ Я ДОБАВЛЯЮ УСЛОВИЕ ELSE IF, ВЫСВЕЛИЧВАЕТ ОШИБКУ, ЧТО НАДО ИНИЦИАЛИЗИРОВАТЬ OS ???
@@ -32,21 +50,14 @@ public class Main {
 
         if (os == 0) {
             if (yearOfCreation < currentYear) {
-                System.out.println("Установите облегченную версию приложения для iOS по ссылке");
+                System.out.println("Установите облегченную версию приложения для " + formatedOs + " по ссылке");
             } else {
-                System.out.println("Установите версию приложения для iOS по ссылке");
-            }
-        } else if (os == 1) {
-            if (yearOfCreation < currentYear) {
-                System.out.println("Установите облегченную версию приложения для Andrion по ссылке");
-            } else {
-                System.out.println("Установите версию приложения для iOS по ссылке");
+                System.out.println("Установите версию приложения для " + formatedOs + " по ссылке");
             }
         }
-
     }
 
-    public static void printDelivaryTime(int deliveryDistance) {
+    public static int deliveryTime(int deliveryDistance) {
         int deliveryTime = 1;
         if (deliveryDistance < 20) {
             //deliveryTime = deliveryTime;
@@ -55,10 +66,24 @@ public class Main {
         } else if (deliveryDistance < 100) {
             deliveryTime += 2;
         } else {
-            System.out.println("Свыше 100 км доставки нет");
+            deliveryTime = -1;
         }
-        System.out.println("Потребуется дней на доставку: " + deliveryTime);
+        return deliveryTime;
     }
+
+//    public static void printDelivaryTime(int deliveryDistance) {
+//        int deliveryTime = 1;
+//        if (deliveryDistance < 20) {
+//            //deliveryTime = deliveryTime;
+//        } else if (deliveryDistance < 60) {
+//            deliveryTime += 1;
+//        } else if (deliveryDistance < 100) {
+//            deliveryTime += 2;
+//        } else {
+//            System.out.println("Свыше 100 км доставки нет");
+//        }
+//        System.out.println("Потребуется дней на доставку: " + deliveryTime);
+//    }
 
     public static void main(String[] args) {
         task1();
@@ -98,7 +123,15 @@ public class Main {
         System.out.print("Введине расстояние от офиса до адреса доставки - ");
         int deliveryDistance = sc.nextInt();
 
-        printDelivaryTime(deliveryDistance);
+        int timeToDelivery = deliveryTime(deliveryDistance);
+
+        if (timeToDelivery == -1) {
+            System.out.println("Доставки по этому адресу нет");
+        } else {
+            System.out.println("Срок доставки - " + timeToDelivery + " д.");
+        }
+
+        //printDelivaryTime(deliveryDistance);
     }
 
 }
